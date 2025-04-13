@@ -5,8 +5,7 @@ import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
 import connectDB from "./db/db.js";
-import userRoutes from './routes/user.js'
-
+import userRouter from "./routes/user.routes.js";
 
 dotenv.config();
 
@@ -23,21 +22,16 @@ app.use(cookieParser());
 app.use(urlencoded({ extended: true }));
 
 
-
-
-app.use('/user', userRoutes)
-
+app.use("/api/v1/user",userRouter);
 
 // Connect to DB and start the server
 connectDB()
   .then(() => {
     app.listen(PORT, () => {
       console.log(`Server is running on http://localhost:${PORT}`);
-      // console.log("ayush");
     });
   })
   .catch((error) => {
     console.error("Failed to connect to the database:", error);
-    
     process.exit(1); // Exit process with failure
   });

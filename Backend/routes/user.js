@@ -1,13 +1,10 @@
-import express from "express";
-// import { handelUserSignUp, handelUserLogin } from "../controllers/user.js";
-import userController from "../controllers/user.js";
+import express from 'express';
+import { register, login, logout } from '../controllers/user.controller.js';
+import  isAuthenticated  from '../middlewares/isAuthenticated.js';
+const router= express.Router();
 
-const router = express.Router();
-
-router.route('/signup').post(userController.handelUserSignUp);
-
-router.route('/login').post(userController.handelUserLogin);
-
-router.route('/logout').post(userController.handelUserLogout);
+router.route('/register').post(register);
+router.route('/login').post(login);
+router.route('/logout').get(isAuthenticated,logout);
 
 export default router;
